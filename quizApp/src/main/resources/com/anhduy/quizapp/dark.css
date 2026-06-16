@@ -1,0 +1,20 @@
+.container {
+    -fx-background-color: #121212;
+    -fx-alignment:center;
+    -fx-spacing:10;
+}
+.Subject {
+    -fx-font-size:40;
+    -fx-font-weight:bold;
+    -fx-fill:#FFFFFF;
+    -fx-stroke-width:3;
+    -fx-stroke:gold;
+}
+.Button {
+    -fx-background-color:#333333;
+    -fx-text-fill:#FFFFFF;
+    -fx-pref-width:200;
+    -fx-font-size:16;
+    
+}
+

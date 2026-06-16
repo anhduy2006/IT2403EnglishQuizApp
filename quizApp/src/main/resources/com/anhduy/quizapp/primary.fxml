@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anhduy.quizapp.PrimaryController">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Subject" text="English" />
+      <Button mnemonicParsing="false" onAction="#manageQuestion" styleClass="Button" text="Quan ly cau hoi" />
+      <Button layoutX="10.0" layoutY="26.0" mnemonicParsing="false" onAction="#practice" styleClass="Button" text="Luyen tap" />
+      <Button layoutX="10.0" layoutY="27.0" mnemonicParsing="false" onAction="#exam" styleClass="Button" text="Luyen Thi" />
+      <ComboBox fx:id="cbThemes" prefWidth="150.0" styleClass="Button" />
+   </children>
+</VBox>
