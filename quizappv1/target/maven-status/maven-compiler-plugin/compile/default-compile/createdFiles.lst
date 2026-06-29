@@ -1,4 +1,5 @@
 com\dht\pojo\Category.class
+com\dht\pojo\Question$Builder.class
 com\dht\quizappv1\QuanLyCauHoiController.class
 com\dht\utils\themes\ThemeTypes$2.class
 com\dht\utils\MyStageSingleton.class
@@ -11,8 +12,12 @@ com\dht\utils\themes\ThemeAbstractFactory.class
 com\dht\utils\themes\LightFactory.class
 com\dht\utils\themes\ThemeTypes$1.class
 com\dht\quizappv1\SecondaryController.class
+com\dht\services\question\QuestionServices.class
 com\dht\utils\themes\DefaultFactory.class
+com\dht\pojo\Question.class
 com\dht\utils\MyConnectSingleton.class
+com\dht\pojo\Level.class
+com\dht\pojo\Choice.class
 com\dht\quizappv1\App.class
 com\dht\services\CategoryServices.class
 com\dht\utils\themes\ThemeTypes$3.class

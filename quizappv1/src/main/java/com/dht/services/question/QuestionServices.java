@@ -2,36 +2,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.dht.services;
+package com.dht.services.question;
 
 import com.dht.pojo.Category;
+import com.dht.pojo.Question;
 import com.dht.utils.MyConnectSingleton;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author admin
+ * @author LOQ-M
  */
-public class CategoryServices {
-    public List<Category> getCates() throws SQLException {
+public class QuestionServices {
+    public  List<Question> getQuestion() throws SQLException {
         Connection connect = MyConnectSingleton.getInstance().connect();//DriverManager.getConnection("jdbc:mysql://localhost/quizdb", "root", "root");
             //B3
-            String sql = "SELECT * FROM category";
+            String sql = "SELECT * FROM question";
             PreparedStatement stm = connect.prepareCall(sql);
             ResultSet rs = stm.executeQuery(sql);
-            List<Category> cates = new ArrayList<>();
+            List<Question> ques = new ArrayList<>();
             while (rs.next()) {
                 int id= rs.getInt("id");
-                String name = rs.getString("name");
-                System.out.printf("%d - %s\n", id,name);
-                cates.add(new Category(id,name));
+                String Content = rs.getString("content");
+                ques.add(new Question.Builder().setId(id).setContent(Content).build());
+                
             }
-            return cates;
+            return ques;
     }
 }
