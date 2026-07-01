@@ -19,6 +19,7 @@ com\dht\utils\MyConnectSingleton.class
 com\dht\pojo\Level.class
 com\dht\pojo\Choice.class
 com\dht\quizappv1\App.class
+com\dht\services\LevelServices.class
 com\dht\services\CategoryServices.class
 com\dht\utils\themes\ThemeTypes$3.class
 com\dht\utils\themes\DarkFactory.class
