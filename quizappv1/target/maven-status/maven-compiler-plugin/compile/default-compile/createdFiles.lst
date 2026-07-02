@@ -1,3 +1,4 @@
+com\dht\utils\Configs.class
 com\dht\pojo\Category.class
 com\dht\pojo\Question$Builder.class
 com\dht\quizappv1\QuanLyCauHoiController.class
@@ -21,5 +22,6 @@ com\dht\pojo\Choice.class
 com\dht\quizappv1\App.class
 com\dht\services\LevelServices.class
 com\dht\services\CategoryServices.class
+com\dht\services\question\UpdateQuestionServices.class
 com\dht\utils\themes\ThemeTypes$3.class
 com\dht\utils\themes\DarkFactory.class
