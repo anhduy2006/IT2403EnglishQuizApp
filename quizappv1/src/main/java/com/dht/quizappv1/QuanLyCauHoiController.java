@@ -8,6 +8,7 @@ import com.dht.pojo.Category;
 import com.dht.pojo.Choice;
 import com.dht.pojo.Level;
 import com.dht.pojo.Question;
+import com.dht.pojo.QuestionQueryBuilder;
 import com.dht.services.CategoryServices;
 import com.dht.services.LevelServices;
 import com.dht.services.question.QuestionServices;
@@ -49,48 +50,69 @@ import javafx.scene.layout.VBox;
  * @author admin
  */
 public class QuanLyCauHoiController implements Initializable {
-    
-    @FXML private ComboBox<Category> cbCates;
-    @FXML private TableView<Question> tvQuestions; 
-    @FXML private ComboBox<Category> cbSeachCates;
-    @FXML private ComboBox<Level> cbSeachLevels;
-    @FXML private ComboBox<Level> cbLevels;
-    @FXML private VBox vChoices;
-    @FXML private TextArea txtContent;
-    @FXML private ToggleGroup toggle;
-    @FXML private TextField txtKeyWords;
+
+    @FXML
+    private ComboBox<Category> cbCates;
+    @FXML
+    private TableView<Question> tvQuestions;
+    @FXML
+    private ComboBox<Category> cbSeachCates;
+    @FXML
+    private ComboBox<Level> cbSeachLevels;
+    @FXML
+    private ComboBox<Level> cbLevels;
+    @FXML
+    private VBox vChoices;
+    @FXML
+    private TextArea txtContent;
+    @FXML
+    private ToggleGroup toggle;
+    @FXML
+    private TextField txtKeyWords;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-            this.LoadColumns();
-        try {
-            this.cbCates.setItems(FXCollections.observableList(Configs.CateServices.getCates())); 
-            this.cbLevels.setItems(FXCollections.observableList(Configs.LvServices.getLevels()));
-            this.cbSeachCates.setItems(FXCollections.observableList(Configs.CateServices.getCates())); 
-            this.cbSeachLevels.setItems(FXCollections.observableList(Configs.LvServices.getLevels()));
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        this.LoadColumns();
         loadTableQuestion();
+        try {
+            this.cbCates.setItems(FXCollections.observableList(Configs.CateServices.getCates()));
+            this.cbLevels.setItems(FXCollections.observableList(Configs.LvServices.getLevels()));
+            this.cbSeachCates.setItems(FXCollections.observableList(Configs.CateServices.getCates()));
+            this.cbSeachLevels.setItems(FXCollections.observableList(Configs.LvServices.getLevels()));
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        this.txtKeyWords.textProperty().addListener(e -> {
+            this.loadTableQuestion();
+        });
+        this.cbSeachCates.getSelectionModel().selectedItemProperty().addListener(e -> {
+            this.loadTableQuestion();
+        });
+        this.cbSeachLevels.getSelectionModel().selectedItemProperty().addListener(e -> {
+            this.loadTableQuestion();
+        });
     }
+
     private void LoadColumns() {
         TableColumn colid = new TableColumn("Id");
         colid.setCellValueFactory(new PropertyValueFactory("id"));
         colid.setPrefWidth(100);
-        
+
         TableColumn content = new TableColumn("noi dung cau hoi");
         content.setCellValueFactory(new PropertyValueFactory("content"));
-        content.setPrefWidth(300);
-        
-        this.tvQuestions.getColumns().addAll(colid,content);
+        content.setPrefWidth(80);
+
+        this.tvQuestions.getColumns().addAll(colid, content);
     }
+
     public void addChoose(ActionEvent e) {
         HBox h = new HBox();
         h.getStyleClass().add("Container");
-        
+
         RadioButton r = new RadioButton();
         r.setToggleGroup(toggle);
         TextField txt = new TextField();
@@ -98,41 +120,39 @@ public class QuanLyCauHoiController implements Initializable {
         h.getChildren().addAll(r, txt);
         this.vChoices.getChildren().add(h);
     }
-    public void addQuestion(ActionEvent e){
+
+    public void addQuestion(ActionEvent e) {
         Question q = new Question.Builder().setCategory(this.cbCates.getSelectionModel().getSelectedItem()).setContent(this.txtContent.getText())
                 .setLevel(this.cbLevels.getSelectionModel().getSelectedItem()).build();
         List<Choice> choices = new ArrayList<>();
-        for (var hbox: this.vChoices.getChildren()) {
+        for (var hbox : this.vChoices.getChildren()) {
             HBox h = (HBox) hbox;
-            RadioButton rdo = (RadioButton)h.getChildren().get(0);
-            TextField txt = (TextField)h.getChildren().get(1);
-            choices.add(new Choice(txt.getText(),rdo.isSelected()));
+            RadioButton rdo = (RadioButton) h.getChildren().get(0);
+            TextField txt = (TextField) h.getChildren().get(1);
+            choices.add(new Choice(txt.getText(), rdo.isSelected()));
         }
         try {
             Optional<ButtonType> b = MyAlertSingleton.getInstance().showMsg("Ban chac chan them khong?", Alert.AlertType.CONFIRMATION);
             if (b.isPresent() && b.get() == ButtonType.OK) {
                 Configs.UQuestionServices.addQuestion(q, choices);
                 MyAlertSingleton.getInstance().showMsg("Them cau hoi thanh cong");
-                loadTableQuestion();
+
             }
-            
-            
+
         } catch (SQLException ex) {
-            MyAlertSingleton.getInstance().showMsg("Them cau hoi that bai,do" + ex.getMessage(),Alert.AlertType.ERROR);
+            MyAlertSingleton.getInstance().showMsg("Them cau hoi that bai,do" + ex.getMessage(), Alert.AlertType.ERROR);
         }
     }
-    
+
     private void loadTableQuestion() {
         try {
+            QuestionQueryBuilder sql = new QuestionQueryBuilder().widthKeywords(this.txtKeyWords.getText()).widthCategory(this.cbSeachCates.getSelectionModel().getSelectedItem()).widthLevel(this.cbSeachLevels.getSelectionModel().getSelectedItem());
+            Configs.QuesServices.setQuery(sql);
             this.tvQuestions.setItems(
-    FXCollections.observableList(
-        Configs.QuesServices.getQuestion(
-            this.txtKeyWords.getText(),
-            this.cbSeachCates.getSelectionModel().getSelectedItem(),
-            this.cbLevels.getSelectionModel().getSelectedItem()
-        )
-    )
-);
+                    FXCollections.observableList(
+                            Configs.QuesServices.getQuestion()
+                    )
+            );
         } catch (SQLException ex) {
             System.getLogger(QuanLyCauHoiController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }

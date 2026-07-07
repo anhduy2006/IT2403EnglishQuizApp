@@ -3,6 +3,7 @@ com\dht\pojo\Category.class
 com\dht\pojo\Question$Builder.class
 com\dht\quizappv1\QuanLyCauHoiController.class
 com\dht\utils\themes\ThemeTypes$2.class
+com\dht\quizappv1\PraticsController.class
 com\dht\utils\MyStageSingleton.class
 com\dht\utils\themes\ThemeManager.class
 com\dht\utils\MyAlertSingleton.class
@@ -11,6 +12,7 @@ module-info.class
 com\dht\utils\themes\ThemeTypes.class
 com\dht\utils\themes\ThemeAbstractFactory.class
 com\dht\utils\themes\LightFactory.class
+com\dht\pojo\QuestionQueryBuilder.class
 com\dht\utils\themes\ThemeTypes$1.class
 com\dht\quizappv1\SecondaryController.class
 com\dht\services\question\QuestionServices.class
