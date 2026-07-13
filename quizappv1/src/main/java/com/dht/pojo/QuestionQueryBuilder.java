@@ -16,6 +16,60 @@ import java.util.List;
  * @author admin
  */
 public class QuestionQueryBuilder {
+
+    /**
+     * @return the query
+     */
+    public StringBuilder getQuery() {
+        return query;
+    }
+
+    /**
+     * @param query the query to set
+     */
+    public void setQuery(StringBuilder query) {
+        this.query = query;
+    }
+
+    /**
+     * @return the where
+     */
+    public StringBuilder getWhere() {
+        return where;
+    }
+
+    /**
+     * @param where the where to set
+     */
+    public void setWhere(StringBuilder where) {
+        this.where = where;
+    }
+
+    /**
+     * @return the orderby
+     */
+    public String getOrderby(String rand) {
+        return orderby;
+    }
+
+    /**
+     * @param orderby the orderby to set
+     */
+   
+
+    /**
+     * @return the params
+     */
+    public List<Object> getParams() {
+        return params;
+    }
+
+    /**
+     * @param params the params to set
+     */
+    public void setParams(List<Object> params) {
+        this.params = params;
+    }
     private StringBuilder query;
     private StringBuilder where;
     private String orderby = "id DESC";
@@ -26,32 +80,50 @@ public class QuestionQueryBuilder {
         this.where = new StringBuilder();
         this.params = new ArrayList<>();
     }
+    public QuestionQueryBuilder setOrderby(String kw) {
+        this.orderby = kw;
+        return this;
+    }
      public QuestionQueryBuilder widthKeywords(String kw) {
          if (kw != null && !kw.isEmpty()) {
-         this.where.append(" AND content like concat('%', ?, '%')");
-         this.params.add(kw);
+             this.getWhere().append(" AND content like concat('%', ?, '%')");
+             this.getParams().add(kw);
      }
     return this;
      }
      public QuestionQueryBuilder widthCategory(Category c) {
          if (c != null) {
-            this.where.append(" AND category_id = ?");
-            this.params.add(c.getId());
+             this.getWhere().append(" AND category_id = ?");
+             this.getParams().add(c.getId());
          }
          return this;
      }
      public QuestionQueryBuilder widthLevel(Level l) {
          if (l != null) {
-                this.where.append(" And level_id = ?") ;
-                this.params.add(l.getId());
+             this.getWhere().append(" And level_id = ?") ;
+             this.getParams().add(l.getId());
             }
          return this;
      }
+     public QuestionQueryBuilder setlimit(int limit) {
+         if (this.getQuery().toString().toLowerCase().contains("limit") ) {
+             this.getQuery().append(" LIMIT ?");
+             this.getParams().add(limit);
+            
+         }
+         return this;
+     }
+          public QuestionQueryBuilder setlimit(String limit) {
+              this.setlimit(Integer.parseInt(limit));
+            
+         
+         return this;
+     }
      public PreparedStatement build() throws SQLException {
-         String sql = String.format(this.query.toString(),this.where.toString(),this.orderby);
+         String sql = String.format(this.getQuery().toString(),this.getWhere().toString(), this.getOrderby("rand()"));
          PreparedStatement stm = MyConnectSingleton.getInstance().connect().prepareCall(sql);
-         for (int i = 0; i < params.size(); i++) {
-            stm.setObject(i + 1, this.params.get(i));
+         for (int i = 0; i < getParams().size(); i++) {
+            stm.setObject(i + 1, this.getParams().get(i));
         }
          return stm;
      }

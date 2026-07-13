@@ -8,25 +8,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="625.0" styleClass="Container" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="625.0" styleClass="Container" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dht.quizappv1.PraticsController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Subject" text="Luyện tập" />
       <HBox prefHeight="62.0" prefWidth="600.0" styleClass="Container" stylesheets="@styles.css">
          <children>
-            <TextField promptText="te" />
-            <ComboBox prefWidth="150.0" />
-            <ComboBox prefWidth="150.0" />
-            <Button mnemonicParsing="false" style="-fx-background-color: green;" text="Bắt đầu" textFill="#000000d2" />
+            <TextField fx:id="txtNum" promptText="5" text="5" />
+            <ComboBox fx:id="cbSearchCates" prefWidth="150.0" />
+            <ComboBox fx:id="cbSeachLevel" prefWidth="150.0" />
+            <Button mnemonicParsing="false" onAction="#start" text="Bắt đầu" />
          </children>
       </HBox>
-      <Label text="Nội dung câu hỏi" />
-      <VBox prefHeight="131.0" prefWidth="605.0" />
+      <Label fx:id="lbContent" text="Nội dung câu hỏi" />
+      <VBox fx:id="Vchoices" prefHeight="131.0" prefWidth="605.0" spacing="10.0" />
       <HBox prefHeight="77.0" prefWidth="605.0" styleClass="Container">
          <children>
-            <Button mnemonicParsing="false" styleClass="Button" text="&lt;&lt;" />
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="Button" text="Kiểm tra" />
-            <Button layoutX="260.0" layoutY="10.0" mnemonicParsing="false" styleClass="Button" text="&gt;&gt;" />
+            <Button mnemonicParsing="false" onAction="#previous" styleClass="Button" text="&lt;&lt;" />
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkAnswer" style="-fx-background-color: red;" styleClass="Button" text="Kiểm tra" />
+            <Button layoutX="260.0" layoutY="10.0" mnemonicParsing="false" onAction="#next" styleClass="Button" text="&gt;&gt;" />
          </children>
       </HBox>
    </children>

@@ -5,6 +5,7 @@
 package com.dht.services.question;
 
 import com.dht.pojo.Category;
+import com.dht.pojo.Choice;
 import com.dht.pojo.Level;
 import com.dht.pojo.Question;
 import com.dht.pojo.QuestionQueryBuilder;
@@ -20,7 +21,7 @@ import java.util.List;
  *
  * @author LOQ-M
  */
-public class QuestionServices {
+public class QuestionServices extends QuestionServicesBase{
     private QuestionQueryBuilder sql;
 
     public QuestionServices() {
@@ -30,6 +31,7 @@ public class QuestionServices {
         this.sql = query;
     }
     
+    @Override
     public List<Question> getQuestion() throws SQLException {
         
 
@@ -45,6 +47,7 @@ public class QuestionServices {
         }
         return ques;
     }
+
 
     /**
      * @param query the query to set
