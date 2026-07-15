@@ -10,7 +10,9 @@ import com.dht.pojo.Level;
 import com.dht.pojo.Question;
 import com.dht.pojo.QuestionQueryBuilder;
 import com.dht.services.CategoryServices;
+import com.dht.services.FlyWeightfactory;
 import com.dht.services.LevelServices;
+import com.dht.services.QueryServicesBase;
 import com.dht.services.question.QuestionServices;
 import com.dht.utils.Configs;
 import com.dht.utils.MyAlertSingleton;
@@ -76,16 +78,15 @@ public class QuanLyCauHoiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.LoadColumns();
-        loadTableQuestion();
-        try {
-            this.cbCates.setItems(FXCollections.observableList(Configs.CateServices.getCates()));
-            this.cbLevels.setItems(FXCollections.observableList(Configs.LvServices.getLevels()));
-            this.cbSeachCates.setItems(FXCollections.observableList(Configs.CateServices.getCates()));
-            this.cbSeachLevels.setItems(FXCollections.observableList(Configs.LvServices.getLevels()));
+        
+        
+            FlyWeightfactory.getData(Configs.CateServices, Configs.CATE_KEY);
+            this.cbCates.setItems(FXCollections.observableList(FlyWeightfactory.getData(Configs.CateServices, Configs.CATE_KEY)));
+            this.cbLevels.setItems(FXCollections.observableList(FlyWeightfactory.getData(Configs.LvServices, Configs.LLV_KEY)));
+            this.cbSeachCates.setItems(FXCollections.observableList(FlyWeightfactory.getData(Configs.CateServices, Configs.CATE_KEY)));
+            this.cbSeachLevels.setItems(FXCollections.observableList(FlyWeightfactory.getData(Configs.LvServices, Configs.LLV_KEY)));
 
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
+        
         this.txtKeyWords.textProperty().addListener(e -> {
             this.loadTableQuestion();
         });
@@ -150,7 +151,7 @@ public class QuanLyCauHoiController implements Initializable {
             Configs.QuesServices.setQuery(sql);
             this.tvQuestions.setItems(
                     FXCollections.observableList(
-                            Configs.QuesServices.getQuestion()
+                            Configs.QuesServices.list()
                     )
             );
         } catch (SQLException ex) {

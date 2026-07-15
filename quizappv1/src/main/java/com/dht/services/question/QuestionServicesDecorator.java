@@ -12,16 +12,18 @@ import java.util.List;
  *
  * @author LOQ-M
  */
-public class QuestionServicesDecorator extends QuestionServicesBase {
+public class QuestionServicesDecorator implements QuestionServicesBase {
     protected QuestionServicesBase services;
 
     public QuestionServicesDecorator(QuestionServicesBase services) {
         this.services = services;
     }
 
+    
+
     @Override
-    public List<Question> getQuestion() throws SQLException {
-        List<Question> questions = this.services.getQuestion();
+    public List<Question> list() throws SQLException {
+        List<Question> questions = this.services.list();
         ChoicesServices choicesSV = new ChoicesServices();
         for (var q:questions) {
             q.setChoices(choicesSV.getChoiceQuestionId(q.getId()));

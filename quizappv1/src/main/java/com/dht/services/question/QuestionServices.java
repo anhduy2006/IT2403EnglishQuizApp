@@ -9,6 +9,7 @@ import com.dht.pojo.Choice;
 import com.dht.pojo.Level;
 import com.dht.pojo.Question;
 import com.dht.pojo.QuestionQueryBuilder;
+import com.dht.services.QueryServicesBase;
 import com.dht.utils.MyConnectSingleton;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ import java.util.List;
  *
  * @author LOQ-M
  */
-public class QuestionServices extends QuestionServicesBase{
+public class QuestionServices extends QueryServicesBase<Question> implements QuestionServicesBase{
     private QuestionQueryBuilder sql;
 
     public QuestionServices() {
@@ -31,22 +32,7 @@ public class QuestionServices extends QuestionServicesBase{
         this.sql = query;
     }
     
-    @Override
-    public List<Question> getQuestion() throws SQLException {
-        
-
-        PreparedStatement stm = this.sql.build();
-
-        ResultSet rs = stm.executeQuery();
-        List<Question> ques = new ArrayList<>();
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            String Content = rs.getString("content");
-            ques.add(new Question.Builder().setId(id).setContent(Content).build());
-
-        }
-        return ques;
-    }
+ 
 
 
     /**
@@ -57,5 +43,15 @@ public class QuestionServices extends QuestionServicesBase{
     }
     public void setSql(QuestionQueryBuilder sql) {
         this.sql = sql;
+    }
+
+    @Override
+    public PreparedStatement getStatement() throws SQLException {
+        return this.sql.build();  // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Question getObject(ResultSet rs) throws SQLException {
+        return new Question.Builder().setId(rs.getInt("id")).setContent(rs.getString("content")).build(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

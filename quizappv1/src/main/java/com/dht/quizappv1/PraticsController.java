@@ -55,8 +55,8 @@ public class PraticsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             
-            this.cbSearchCates.setItems(FXCollections.observableList(Configs.CateServices.getCates()));
-            this.cbSeachLevel.setItems(FXCollections.observableList(Configs.LvServices.getLevels()));
+            this.cbSearchCates.setItems(FXCollections.observableList(Configs.CateServices.list()));
+            this.cbSeachLevel.setItems(FXCollections.observableList(Configs.LvServices.list()));
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -70,7 +70,7 @@ public class PraticsController implements Initializable {
         Configs.QuesServices.setSql(b);
 
         try {
-            this.question = new QuestionServicesDecorator(Configs.QuesServices).getQuestion();
+            this.question = new QuestionServicesDecorator(Configs.QuesServices).list();
              this.loadQuestion(1);
 
         } catch (SQLException ex) {

@@ -18,7 +18,7 @@
       <HBox styleClass="Container">
          <children>
             <ComboBox fx:id="cbCates" prefWidth="150.0" promptText="Danh mục" styleClass="Button" />
-            <ComboBox fx:id="cbLevels" prefWidth="150.0" promptText="Mức đo" styleClass="Button" />
+            <ComboBox fx:id="cbLevels" prefWidth="150.0" promptText="Mức độ" styleClass="Button" />
          </children>
       </HBox>
       <VBox fx:id="vChoices" prefHeight="206.0" prefWidth="793.0">

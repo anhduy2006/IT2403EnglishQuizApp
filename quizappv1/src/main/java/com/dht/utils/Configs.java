@@ -24,4 +24,8 @@ public class Configs {
     public final static QuestionServices QuesServices = new QuestionServices();
     public final static LevelServices LvServices = new LevelServices();
     public static final UpdateQuestionServices UQuestionServices = new UpdateQuestionServices();
+    public static final String CATE_KEY="categories";
+    public static final String LLV_KEY="levels";
+    public static final int EXAM_NUM =10;
+    public static final double[] RATES = { 0.4,0.4,0.2 };
 }

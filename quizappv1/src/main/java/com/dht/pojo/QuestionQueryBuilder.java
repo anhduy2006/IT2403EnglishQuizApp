@@ -105,6 +105,13 @@ public class QuestionQueryBuilder {
             }
          return this;
      }
+     public QuestionQueryBuilder widthLevel(int lvlId) {
+         if (lvlId > 0) {
+             this.getWhere().append(" And level_id = ?") ;
+             this.getParams().add(lvlId);
+            }
+         return this;
+     }
      public QuestionQueryBuilder setlimit(int limit) {
          if (this.getQuery().toString().toLowerCase().contains("limit") ) {
              this.getQuery().append(" LIMIT ?");
